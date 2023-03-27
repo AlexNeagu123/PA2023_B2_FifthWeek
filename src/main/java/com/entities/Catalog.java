@@ -22,7 +22,7 @@ public class Catalog implements Serializable {
     }
 
     public void add(Document doc) throws DuplicateDocumentException {
-        if(documents.contains(doc)) {
+        if (documents.contains(doc)) {
             throw new DuplicateDocumentException(doc.getTitle(), name);
         }
         documents.add(doc);

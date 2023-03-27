@@ -55,7 +55,7 @@ public class Document implements Serializable {
         for (String tag : tags.keySet()) {
             stringRepresentation.append("   ").append(tag).append(" : ").append(tags.get(tag)).append("\n");
         }
-        stringRepresentation.append("}");
+        stringRepresentation.append("}\n");
         return stringRepresentation.toString();
     }
 }
