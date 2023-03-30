@@ -5,6 +5,11 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * The <tt>NodeColorPair</tt> class represents a pair consisting of a {@link Document} object and an Integer number representing
+ * it color.
+ * Multiple <tt>NodeColorPair</tt> elements form a graph coloring.
+ */
 @Getter
 @Setter
 @AllArgsConstructor

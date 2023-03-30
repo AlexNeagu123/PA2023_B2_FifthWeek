@@ -10,10 +10,18 @@ import org.xml.sax.SAXException;
 
 import java.io.IOException;
 
+/**
+ * The <tt>InfoCommand</tt> class is responsible for displaying the metadata of all the documents contained in a {@link Catalog} object
+ */
 @AllArgsConstructor
 public class InfoCommand implements Command {
     private Catalog catalog;
 
+    /**
+     * Extracts metadata from all the documents contained in the catalog.
+     * <p>
+     * Logs if some extraction couldn't take place.
+     */
     @Override
     public void execute() {
         for (Document doc : catalog.getDocuments()) {

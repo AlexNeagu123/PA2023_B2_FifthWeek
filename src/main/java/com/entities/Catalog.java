@@ -10,6 +10,11 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The <tt>Catalog</tt> class represents a real catalog that has a name and a list of associated {@link Document} objects.
+ * <p>
+ * <tt>Catalog</tt>> objects are serializable
+ */
 @Getter
 @Setter
 @EqualsAndHashCode
@@ -27,6 +32,12 @@ public class Catalog implements Serializable {
         documents = new ArrayList<>();
     }
 
+    /**
+     * Adds a new {@link Document} into the catalog
+     *
+     * @param doc The document that is being added
+     * @throws DuplicateDocumentException If a documents with the same id as the one inserted already exists
+     */
     public void add(Document doc) throws DuplicateDocumentException {
         if (documents.contains(doc)) {
             throw new DuplicateDocumentException(doc.getId(), name);

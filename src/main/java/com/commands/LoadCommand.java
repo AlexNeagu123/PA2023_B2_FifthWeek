@@ -6,11 +6,22 @@ import lombok.AllArgsConstructor;
 
 import java.io.IOException;
 
+/**
+ * The <tt>LoadCommand</tt> class is responsible for loading a {@link Catalog} object from a JSON file specified by its
+ * absolute path.
+ */
 @AllArgsConstructor
 public class LoadCommand implements Command {
     private final Catalog receiverCatalog;
     private final String loadLocation;
 
+    /**
+     * The <tt>Catalog</tt>> is extracted from the json file.
+     * <p>
+     * All the information extracted is copied into the {@code receiverCatalog} object.
+     * <p>
+     * Logs if the loading couldn't take place.
+     */
     @Override
     public void execute() {
         try {

@@ -7,12 +7,24 @@ import lombok.ToString;
 
 import java.util.*;
 
+/**
+ * The <tt>GraphColoringProblem</tt> class has the role of storing all the relevant information about an instance of
+ * the graph coloring problem.</tt>.
+ * <p>
+ * This class stores an undirected graph where a node is characterized by a {@link Document} object.
+ * <p>
+ * An edge between two {@link Document} objects exists if there are common tags or metadata between them.
+ */
 @ToString
 public class GraphColoringProblem {
     private final Map<Document, Set<Document>> neighbours;
     private final int nodeCount;
     private int edgeCount;
 
+    /**
+     * @param catalog A {@link Catalog} object that contains multiple documents. The graph is constructed based on the
+     *                {@link Document} objects contained in this catalog
+     */
     public GraphColoringProblem(Catalog catalog) {
         this.nodeCount = catalog.documentCount();
         this.edgeCount = 0;
@@ -31,6 +43,10 @@ public class GraphColoringProblem {
         System.out.println("Created a graph coloring problem instance with " + nodeCount + " nodes and " + edgeCount + " edges");
     }
 
+    /**
+     * @param doc A {@link Document} object
+     * @return A list of all the neighbours of the {@code doc} node
+     */
     public List<Document> getNeighboursOfNode(Document doc) {
         if (neighbours.get(doc) == null) {
             return new ArrayList<>();

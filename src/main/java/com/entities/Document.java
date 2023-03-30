@@ -10,6 +10,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+/**
+ * The <tt>Document</tt>> class represents a real electronic document with a title, path location, tags and metadata.
+ * <p>
+ * The <tt>Document</tt> class is serializable.
+ */
 @Getter
 @Setter
 @AllArgsConstructor
@@ -29,10 +34,27 @@ public class Document implements Serializable {
         cachedMetadata = new HashMap<>();
     }
 
+    /**
+     * Add a new tag for this <tt>Document</tt>>
+     * If the key of the tag already exists, the insertion doesn't take place (silent behaviour)
+     *
+     * @param tagKey   The key of the tag
+     * @param tagValue The value of the tag
+     */
     public void addTag(String tagKey, String tagValue) {
+        if (tags.containsKey(tagKey)) {
+            return;
+        }
         tags.put(tagKey, tagValue);
     }
 
+    /**
+     * Add a new metadata tag for this <tt>Document</tt>
+     * If the key of the metadata tag already exists, the insertion doesn't take place (silent behaviour)
+     *
+     * @param metadataKey   The key of the metadata tag
+     * @param metadataValue The value of the metadata tag
+     */
     public void addMetadata(String metadataKey, String metadataValue) {
         if (cachedMetadata.containsKey(metadataKey)) {
             return;
