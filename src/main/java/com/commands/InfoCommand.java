@@ -5,6 +5,8 @@ import com.entities.Document;
 import com.exceptions.UnrecognizedPathException;
 import com.utils.CatalogUtils;
 import lombok.AllArgsConstructor;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.tika.exception.TikaException;
 import org.xml.sax.SAXException;
 
@@ -15,6 +17,7 @@ import java.io.IOException;
  */
 @AllArgsConstructor
 public class InfoCommand implements Command {
+    private static final Logger LOGGER = LogManager.getLogger(InfoCommand.class);
     private Catalog catalog;
 
     /**
@@ -25,15 +28,15 @@ public class InfoCommand implements Command {
     @Override
     public void execute() {
         for (Document doc : catalog.getDocuments()) {
-            System.out.println("Extracting metadata from document with id '" + doc.getId() + "'...");
+            LOGGER.info("Extracting metadata from document with id '" + doc.getId() + "'...");
             try {
                 CatalogUtils.printDocumentMetadata(doc);
             } catch (IOException fileException) {
-                System.out.println("The document's location: " + doc.getLocation() + " is invalid.");
+                LOGGER.warn("The document's location: " + doc.getLocation() + " is invalid.");
             } catch (TikaException | SAXException tikaException) {
-                System.out.println("Failed to extract metadata from the document located at: " + doc.getLocation());
+                LOGGER.warn("Failed to extract metadata from the document located at: " + doc.getLocation());
             } catch (UnrecognizedPathException unrecognizedException) {
-                System.out.println(unrecognizedException.getMessage());
+                LOGGER.warn(unrecognizedException.getMessage());
             }
         }
     }

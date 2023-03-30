@@ -6,6 +6,8 @@ import com.utils.CatalogUtils;
 import freemarker.template.Configuration;
 import freemarker.template.TemplateException;
 import lombok.AllArgsConstructor;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 
@@ -17,6 +19,7 @@ import java.io.IOException;
  */
 @AllArgsConstructor
 public class ReportCommand implements Command {
+    private static final Logger LOGGER = LogManager.getLogger(ReportCommand.class);
     private final Catalog catalog;
     private final String reportPath;
     private final Configuration cfg;
@@ -33,9 +36,9 @@ public class ReportCommand implements Command {
         try {
             CatalogUtils.generateCatalogReport(catalog, reportPath, cfg);
         } catch (TemplateException | IOException templateException) {
-            System.out.println("The report couldn't be generated.");
+            LOGGER.warn("The report couldn't be generated.");
         } catch (InvalidHTMLFile openingException) {
-            System.out.println(openingException.getMessage());
+            LOGGER.warn(openingException.getMessage());
         }
     }
 

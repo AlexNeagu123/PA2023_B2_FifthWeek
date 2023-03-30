@@ -1,14 +1,18 @@
 package com.generators;
 
+import com.BonusTask;
 import com.entities.Catalog;
 import com.entities.Document;
 import com.exceptions.DuplicateDocumentException;
 import com.problem.GraphColoringProblem;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * This class is able to generate random instances of a {@link GraphColoringProblem}
  */
 public class ColoringProblemGenerator {
+    private static final Logger LOGGER = LogManager.getLogger(ColoringProblemGenerator.class);
     /**
      * Generate a random instance of a {@link GraphColoringProblem} considering specific parameters
      *
@@ -24,7 +28,7 @@ public class ColoringProblemGenerator {
                 doc.addTag("edge", Integer.toString(edgeId));
                 catalog.add(doc);
             } catch (DuplicateDocumentException duplicateDocument) {
-                System.out.println(duplicateDocument.getMessage());
+                LOGGER.error(duplicateDocument.getMessage());
             }
         }
         return new GraphColoringProblem(catalog);

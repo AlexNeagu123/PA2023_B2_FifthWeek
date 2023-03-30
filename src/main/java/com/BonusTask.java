@@ -13,6 +13,8 @@ import com.problem.JgraphTBrownColoring;
 import com.problem.NodeColorPair;
 import com.utils.FreeMarkerUtils;
 import freemarker.template.Configuration;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -20,6 +22,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class BonusTask {
+    private static final Logger LOGGER = LogManager.getLogger(BonusTask.class);
     public static void main(String[] args) throws IOException {
         // FreeMarker Configuration
         Configuration cfg = new Configuration(Configuration.VERSION_2_3_0);
@@ -50,7 +53,7 @@ public class BonusTask {
         }
 
         // Graph Coloring Algorithm Part
-        GraphColoringProblem graphColoringProblem = ColoringProblemGenerator.generateColoringProblem(22);
+        GraphColoringProblem graphColoringProblem = ColoringProblemGenerator.generateColoringProblem(20);
         compareAlgorithms(graphColoringProblem);
     }
 
@@ -62,18 +65,18 @@ public class BonusTask {
     public static void runJgraphTAlgorithm(GraphColoringProblem graphColoringProblem) {
         JgraphTBrownColoring jgraphTBrownColoring = new JgraphTBrownColoring(graphColoringProblem);
         List<NodeColorPair> graphColoring = jgraphTBrownColoring.getColoring();
-        System.out.println("The Brown Coloring Algorithm implemented by JgraphT generated a coloring with " + graphColoring.size() + " colors:");
+        LOGGER.info("The Brown Coloring Algorithm implemented by JgraphT generated a coloring with " + graphColoring.size() + " colors:");
         for (NodeColorPair pair : graphColoring) {
-            System.out.println(pair);
+            LOGGER.info(pair);
         }
     }
 
     public static void runGreedyAlgorithm(GraphColoringProblem graphColoringProblem) {
         GreedyColoring greedyColoring = new GreedyColoring(graphColoringProblem);
         List<NodeColorPair> graphColoring = greedyColoring.getColoring();
-        System.out.println("The Greedy Coloring Algorithm implemented by me generated a coloring with " + graphColoring.size() + " colors:");
+        LOGGER.info("The Greedy Coloring Algorithm implemented by me generated a coloring with " + graphColoring.size() + " colors:");
         for (NodeColorPair pair : graphColoring) {
-            System.out.println(pair);
+            LOGGER.info(pair);
         }
     }
 }

@@ -4,6 +4,8 @@ import com.entities.Catalog;
 import com.entities.Document;
 import com.utils.MetadataUtils;
 import lombok.ToString;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.*;
 
@@ -17,6 +19,7 @@ import java.util.*;
  */
 @ToString
 public class GraphColoringProblem {
+    private static final Logger LOGGER = LogManager.getLogger(GraphColoringProblem.class);
     private final Map<Document, Set<Document>> neighbours;
     private final int nodeCount;
     private int edgeCount;
@@ -40,7 +43,7 @@ public class GraphColoringProblem {
                 }
             }
         }
-        System.out.println("Created a graph coloring problem instance with " + nodeCount + " nodes and " + edgeCount + " edges");
+        LOGGER.info("Created a graph coloring problem instance with " + nodeCount + " nodes and " + edgeCount + " edges");
     }
 
     /**
