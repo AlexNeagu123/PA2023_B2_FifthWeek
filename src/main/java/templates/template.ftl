@@ -19,6 +19,13 @@
                         </#list>
                         </ul>
                     </li>
+                    <li>Document's cached metadata:
+                        <ul>
+                        <#list document.cachedMetadata?keys as key>
+                            <li>${key} : ${document.cachedMetadata[key]}</li>
+                        </#list>
+                        </ul>
+                    </li>
                 </ul>
             </li>
             <br>

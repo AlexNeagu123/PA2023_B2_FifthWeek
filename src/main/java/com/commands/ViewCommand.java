@@ -2,14 +2,11 @@ package com.commands;
 
 import com.entities.Document;
 import com.utils.CatalogUtils;
-import lombok.NonNull;
+import lombok.AllArgsConstructor;
 
+@AllArgsConstructor
 public class ViewCommand implements Command {
     private final Document document;
-
-    public ViewCommand(@NonNull Document document) {
-        this.document = document;
-    }
 
     @Override
     public void execute() {

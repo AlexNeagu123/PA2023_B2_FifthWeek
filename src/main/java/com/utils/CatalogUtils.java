@@ -1,7 +1,9 @@
 package com.utils;
 
 import com.entities.Catalog;
+import com.entities.Document;
 import com.exceptions.InvalidHTMLFile;
+import com.exceptions.UnrecognizedPathException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
@@ -17,7 +19,9 @@ import java.awt.*;
 import java.io.*;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.nio.file.Files;
+import java.nio.file.InvalidPathException;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
@@ -65,23 +69,48 @@ public class CatalogUtils {
         template.process(dataModel, fileWriter);
         fileWriter.close();
 
-        if (viewDocumentAsLocalFile(reportPath))
-            return;
+        if (viewDocumentAsLocalFile(reportPath)) return;
 
         throw new InvalidHTMLFile(reportPath);
     }
 
-    public static void printDocumentMetadata(String documentPath) throws IOException, TikaException, SAXException {
+    private static InputStream getLocalFileStream(String filePath) {
+        try {
+            return Files.newInputStream(Paths.get(filePath));
+        } catch (IOException | InvalidPathException fileException) {
+            return null;
+        }
+    }
+
+    private static InputStream getURLStream(String urlPath) {
+        try {
+            URL url = new URL(urlPath);
+            return url.openStream();
+        } catch (IOException urlException) {
+            return null;
+        }
+    }
+
+    public static void printDocumentMetadata(Document document) throws IOException, TikaException, SAXException, UnrecognizedPathException {
         AutoDetectParser parser = new AutoDetectParser();
-        BodyContentHandler handler = new BodyContentHandler(System.out);
+        BodyContentHandler handler = new BodyContentHandler();
         Metadata metadata = new Metadata();
         ParseContext parseContext = new ParseContext();
+        String docLocation = document.getLocation();
 
-        InputStream stream = Files.newInputStream(Paths.get(documentPath));
+        InputStream stream = getLocalFileStream(docLocation);
+        if (stream == null) {
+            stream = getURLStream(docLocation);
+        }
+        if (stream == null) {
+            throw new UnrecognizedPathException(docLocation);
+        }
+
         parser.parse(stream, handler, metadata, parseContext);
+        stream.close();
 
-        for (String metadataName : metadata.names()) {
-            System.out.println(metadataName + " : " + metadata.get(metadataName));
+        for (String name : metadata.names()) {
+            document.addMetadata(name, metadata.get(name));
         }
     }
 }

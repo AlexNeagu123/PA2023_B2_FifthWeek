@@ -5,21 +5,15 @@ import com.exceptions.InvalidHTMLFile;
 import com.utils.CatalogUtils;
 import freemarker.template.Configuration;
 import freemarker.template.TemplateException;
-import lombok.NonNull;
+import lombok.AllArgsConstructor;
 
 import java.io.IOException;
 
+@AllArgsConstructor
 public class ReportCommand implements Command {
     private final Catalog catalog;
-
     private final String reportPath;
     private final Configuration cfg;
-
-    public ReportCommand(@NonNull Catalog catalog, String reportPath, @NonNull Configuration cfg) {
-        this.catalog = catalog;
-        this.reportPath = reportPath;
-        this.cfg = cfg;
-    }
 
     @Override
     public void execute() {

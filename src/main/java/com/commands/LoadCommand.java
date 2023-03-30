@@ -2,18 +2,14 @@ package com.commands;
 
 import com.entities.Catalog;
 import com.utils.CatalogUtils;
-import lombok.NonNull;
+import lombok.AllArgsConstructor;
 
 import java.io.IOException;
 
+@AllArgsConstructor
 public class LoadCommand implements Command {
     private final Catalog receiverCatalog;
     private final String loadLocation;
-
-    public LoadCommand(@NonNull Catalog receiverCatalog, String loadLocation) {
-        this.loadLocation = loadLocation;
-        this.receiverCatalog = receiverCatalog;
-    }
 
     @Override
     public void execute() {

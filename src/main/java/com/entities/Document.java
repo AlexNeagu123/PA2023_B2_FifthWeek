@@ -18,17 +18,26 @@ public class Document implements Serializable {
     private String id;
     private String title;
     private String location;
-    private Map<String, Object> tags;
+    private Map<String, String> tags;
+    private Map<String, String> cachedMetadata;
 
     public Document(String id, String title, String location) {
         this.id = id;
         this.title = title;
         this.location = location;
         tags = new HashMap<>();
+        cachedMetadata = new HashMap<>();
     }
 
-    public void addTag(String tagKey, Object tagValue) {
+    public void addTag(String tagKey, String tagValue) {
         tags.put(tagKey, tagValue);
+    }
+
+    public void addMetadata(String metadataKey, String metadataValue) {
+        if (cachedMetadata.containsKey(metadataKey)) {
+            return;
+        }
+        cachedMetadata.put(metadataKey, metadataValue);
     }
 
     @Override
