@@ -4,8 +4,7 @@ import com.entities.Catalog;
 import com.entities.Document;
 import com.utils.MetadataUtils;
 import lombok.ToString;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import lombok.extern.log4j.Log4j2;
 
 import java.util.*;
 
@@ -18,8 +17,8 @@ import java.util.*;
  * An edge between two {@link Document} objects exists if there are common tags or metadata between them.
  */
 @ToString
+@Log4j2
 public class GraphColoringProblem {
-    private static final Logger LOGGER = LogManager.getLogger(GraphColoringProblem.class);
     private final Map<Document, Set<Document>> neighbours;
     private final int nodeCount;
     private int edgeCount;
@@ -43,7 +42,7 @@ public class GraphColoringProblem {
                 }
             }
         }
-        LOGGER.info("Created a graph coloring problem instance with " + nodeCount + " nodes and " + edgeCount + " edges");
+        log.info("Created a graph coloring problem instance with " + nodeCount + " nodes and " + edgeCount + " edges");
     }
 
     /**

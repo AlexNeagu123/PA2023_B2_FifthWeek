@@ -1,20 +1,17 @@
 package com.commands;
 
-import com.BonusTask;
 import com.entities.Document;
 import com.utils.CatalogUtils;
 import lombok.AllArgsConstructor;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import lombok.extern.log4j.Log4j2;
 
 /**
  * The <tt>ViewCommand</tt> class is responsible for opening a {@link Document} from a catalog using the native operating system
  * application.
  */
 @AllArgsConstructor
+@Log4j2
 public class ViewCommand implements Command {
-    private static final Logger LOGGER = LogManager.getLogger(ViewCommand.class);
-
     private final Document document;
 
     /**
@@ -30,7 +27,7 @@ public class ViewCommand implements Command {
         if (CatalogUtils.viewDocumentAsLocalFile(document.getLocation()))
             return;
 
-        LOGGER.warn("The document with id '" + document.getId() + "' couldn't be opened neither as web URI nor as local file");
+        log.error("The document with id '" + document.getId() + "' couldn't be opened neither as web URI nor as local file");
     }
 }
 

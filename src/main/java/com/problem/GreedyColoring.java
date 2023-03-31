@@ -13,7 +13,6 @@ import java.util.*;
  * Time complexity of the algorithm: O(E + V^2) where E is the number of edges and V is the number of nodes in the graph.
  */
 public class GreedyColoring extends GraphColoringAlgorithm {
-
     private final Map<Document, Integer> coloring;
 
     public GreedyColoring(GraphColoringProblem graphColoringProblem) {

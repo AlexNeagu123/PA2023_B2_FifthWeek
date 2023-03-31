@@ -3,8 +3,7 @@ package com.commands;
 import com.entities.Catalog;
 import com.utils.CatalogUtils;
 import lombok.AllArgsConstructor;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import lombok.extern.log4j.Log4j2;
 
 import java.io.IOException;
 
@@ -13,8 +12,8 @@ import java.io.IOException;
  * absolute path.
  */
 @AllArgsConstructor
+@Log4j2
 public class LoadCommand implements Command {
-    private static final Logger LOGGER = LogManager.getLogger(LoadCommand.class);
     private final Catalog receiverCatalog;
     private final String loadLocation;
 
@@ -32,7 +31,7 @@ public class LoadCommand implements Command {
             receiverCatalog.setName(loadedCatalog.getName());
             receiverCatalog.setDocuments(loadedCatalog.getDocuments());
         } catch (IOException exception) {
-            LOGGER.warn("The catalog couldn't be loaded from the " + loadLocation + " location");
+            log.warn("The catalog couldn't be loaded from the " + loadLocation + " location");
         }
     }
 }

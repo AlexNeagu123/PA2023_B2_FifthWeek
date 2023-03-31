@@ -3,8 +3,7 @@ package com.commands;
 import com.entities.Catalog;
 import com.utils.CatalogUtils;
 import lombok.AllArgsConstructor;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import lombok.extern.log4j.Log4j2;
 
 import java.io.IOException;
 
@@ -13,8 +12,8 @@ import java.io.IOException;
  * absolute path.
  */
 @AllArgsConstructor
+@Log4j2
 public class SaveCommand implements Command {
-    private static final Logger LOGGER = LogManager.getLogger(SaveCommand.class);
     private final Catalog savedCatalog;
     private final String saveLocation;
 
@@ -28,7 +27,7 @@ public class SaveCommand implements Command {
         try {
             CatalogUtils.save(savedCatalog, saveLocation);
         } catch (IOException exception) {
-            LOGGER.warn("The catalog " + savedCatalog.getName() + " couldn't be saved in the " + saveLocation + " location");
+            log.error("The catalog " + savedCatalog.getName() + " couldn't be saved in the " + saveLocation + " location");
         }
     }
 }
